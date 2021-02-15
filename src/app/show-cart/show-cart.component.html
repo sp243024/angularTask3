@@ -1,0 +1,51 @@
+<p>show-cart works!</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-bordered" style="width:800px">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Delete Product</th>
+                        <th scope="col">+/- Quantity </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let x of cartProducts, let i = index">
+                        <ng-container *ngFor="let y of productData, let j = index">
+                            <ng-container *ngIf="x.productId == y.productId">
+                                <tr>
+                                    <td>{{y.productName}}</td>
+                                    <td>
+                                        <img width="75" height="75" [src]="y.productImage" />
+                                    </td>
+                                    <td>{{y.productPrice}} $</td>
+                                    <td>{{x.quantity}}</td>
+                                    <td>
+                                        <button class="btn btn-light btn-outline-danger" (click)="deleteFromCart(i)">Delete</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-light btn-outline-info btn-sm" (click)="increaseQuantity(i)">+</button> |
+                                        <button class="btn btn-light btn-outline-danger btn-sm" (click)="decreaseQuantity(i)">-</button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                        <!-- <td><img src="{{x.avatar}}" width="75" height="75" /></td>
+                    <td>
+                        <a [routerLink]="[i]">Edit </a>
+                        <a (click)="onDelete(x.id)">| Delete</a>
+                    </td> -->
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2">
+            <h3 class="btn btn-info" *ngIf="isMsg">{{toastMsg}}</h3>
+        </div>
+    </div>
+</div>
