@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { authService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +12,12 @@ export class LoginComponent implements OnInit {
 
   public userName : string;
   public password : string;
-  public isMsg : boolean = false;
-  public toastMsg : string;
+  public isLoginMode: boolean=true;
+  public isLoading:boolean=false;
+  public isError: boolean=false;
+  public errorMsg:string=null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: authService) { }
 
   ngOnInit(): void {
   }
@@ -27,17 +31,52 @@ export class LoginComponent implements OnInit {
     }
     else
     {
-      this.isMsg = true;
-      this.toastMsg="Invalid Username or Password.";
-      setTimeout(() => {
-        this.isMsg = false;
-      }, 2000);
     }
   }
 
-  public onClear()
+  public onSwitchMode():void
   {
-    this.userName="";
-    this.password="";
+    this.isLoginMode =!this.isLoginMode;
+    this.isError=false;
+  }
+
+  public onSubmit(form: NgForm):void
+  {
+    const email = form.value.userName;
+    const password=form.value.password;
+
+    this.isLoading=true;
+    if(this.isLoginMode)
+    {
+      this.authService.signIn(email,password).subscribe(
+        response =>{
+          console.log(response);
+          this.isLoading=false;
+          this.router.navigateByUrl('/products');
+        },
+        error=>{
+          console.log(error);
+          this.isLoading=false;
+          this.isError=true;
+          this.errorMsg="Invalid Username or Password";
+        }
+      );
+    }
+    else
+    {
+      this.authService.signUp(email,password).subscribe(
+        response =>{
+          console.log(response);
+          this.isLoading=false;
+        },
+        error=>{
+          console.log(error);
+          this.isLoading=false;
+          this.isError=true;
+          this.errorMsg="An error occured.";
+        }
+      );
+    }
+     form.reset();
   }
 }

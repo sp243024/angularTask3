@@ -1,7 +1,20 @@
-<p>login works!</p>
-<form>
+<div *ngIf="isLoading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
+
+<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
 
     <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 alert alert-danger" *ngIf="isError">
+                <h5>An Error Occurred</h5>
+                <p>{{errorMsg}}</p>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
@@ -13,7 +26,7 @@
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <input type="text" placeholder="Enter Username" name="uname" required [(ngModel)]="this.userName" class="form-control">
+                <input type="text" placeholder="Enter Username" name="userName" required ngModel class="form-control">
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -21,7 +34,7 @@
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <label for="psw"><b>Password :</b></label>
+                <label for="password"><b>Password :</b></label>
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -29,7 +42,7 @@
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="this.password" class="form-control">
+                <input type="password" placeholder="Enter Password" name="password" required ngModel class="form-control">
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -38,20 +51,23 @@
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-3">
-                <button class="btn btn-primary form-control" (click)="onLogin()"> Login</button>
+                <button class="btn btn-primary form-control" type="submit" [disabled]="!authForm.valid" (click)="onLogin()"> {{isLoginMode ? 'Login' : 'Sign Up'}}</button>
             </div>
             <div class="col-sm-3">
-                <button class="btn btn-secondary form-control" (click)="onClear()">Clear</button></div>
+                <button class="btn btn-secondary form-control" type="button" (click)="onSwitchMode()">Switch to {{isLoginMode ? 'Sign Up' : 'Login'}}</button></div>
             <div class="col-sm-3"></div>
         </div>
-
         <br>
+
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                <h3 class="btn btn-danger" *ngIf="isMsg">{{toastMsg}}</h3>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <span> UserName: eve.holt@reqres.in</span> <br>
+                <span> Password: pistol</span> <br>
+                <span> API Source : https://reqres.in/ </span>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-3"></div>
         </div>
+        <br>
     </div>
 </form>

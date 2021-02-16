@@ -1,6 +1,14 @@
-<p>show-cart works!</p>
+<!-- <p>show-cart works!</p> -->
+
 
 <div class="container">
+    <p *ngIf="isLoading">Loading...</p>
+
+    <div class="alert alert-danger" *ngIf="isError">
+        <h1>An Error Occurred</h1>
+        <p>{{errorMsg}}</p>
+    </div>
+
     <div class="row">
         <div class="col-md-10">
             <table class="table table-bordered" style="width:800px">

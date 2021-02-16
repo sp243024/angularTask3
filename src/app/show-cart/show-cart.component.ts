@@ -11,7 +11,10 @@ export class ShowCartComponent implements OnInit {
   public cartProducts:[{}];
   public productData: productDetails[] = [];
   public isMsg: boolean = false;
-  public toastMsg : string ="";
+  public toastMsg : string =null;
+  public isError: boolean=false;
+  public errorMsg:string=null;
+  public isLoading:boolean=true;
 
   constructor(private dataService: productListService) { }
 
@@ -19,10 +22,13 @@ export class ShowCartComponent implements OnInit {
     this.getCartData(1);
   }
 
-  public getCartData(id:number)
+  public getCartData(id:number):void
   {
     this.dataService.getCartData(id).subscribe(response => {
       this.cartProducts = response['products'];
+    }, error =>{
+        this.isError=true;
+        this.errorMsg=error.message;
     });
 
     this.dataService.getAllProducts().subscribe(response => {
@@ -37,9 +43,14 @@ export class ShowCartComponent implements OnInit {
           productImage : response[i]['image'] 
         });
       }
+  }, error =>{
+    this.isError=true;
+    this.errorMsg=error.message;
   });  
+      this.isLoading=false;
   }
-  public deleteFromCart(id:number)
+
+  public deleteFromCart(id:number):void
   {
     // this.dataService.deleteFromCart();
     this.isMsg = true;
@@ -49,7 +60,7 @@ export class ShowCartComponent implements OnInit {
       }, 2000);
   }
 
-  public decreaseQuantity(id:number)
+  public decreaseQuantity(id:number):void
   {
     if(this.cartProducts[id]['quantity']>0)
     {
@@ -65,7 +76,7 @@ export class ShowCartComponent implements OnInit {
     }
   }
   
-  public increaseQuantity(id:number)
+  public increaseQuantity(id:number):void
   {
     if(this.cartProducts[id]['quantity']<10)
     {

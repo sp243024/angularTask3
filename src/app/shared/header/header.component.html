@@ -1,0 +1,22 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="navbar">
+    <a href="/login" routerLinkActive="active"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a routerLink='/search' routerLinkActive="active"><i class="fa fa-fw fa-search"></i> Search</a>
+    <a routerLink="/register" routerLinkActive="active"><i class="fa fa-fw fa-envelope"></i> Sign Me Up</a>
+    <a routerLink="/login" routerLinkActive="active"><i class="fa fa-fw fa-user"></i> Login</a>
+</div> -->
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand btn btn-light" routerLink='/' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+        <a class="navbar-brand btn btn-light" routerLink='/products' routerLinkActive="active">Products</a>
+        <a class="navbar-brand btn btn-light" routerLink='/cart' routerLinkActive="active">My Cart</a>
+
+    </div>
+
+</nav>
+<!-- Navbar -->

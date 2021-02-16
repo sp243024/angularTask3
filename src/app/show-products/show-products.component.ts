@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { productDetails } from '../shared/productDetails.model';
 import { productListService } from '../shared/productList.service';
 import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-show-products',
   templateUrl: './show-products.component.html',
   styleUrls: ['./show-products.component.css']
 })
-export class ShowProductsComponent implements OnInit {
+export class ShowProductsComponent implements OnInit, OnDestroy {
   public data: productDetails[] = [];
   stringifiedData: any;
   public isAdded: boolean = false;
+  public searchString:string;
+  public isError: boolean=false;
+  public errorMsg:string=null;
+  public isLoading:boolean=true;
 
   constructor(private http: HttpClient,private dataService: productListService) {
-  //   this.data =  [
-  //     {
-  //         productId:1,
-  //         productName:'cello-chair',
-  //         productPrice:123,
-  //         productCategory:'Furniture',
-  //         productDescription:'Comfirtable',
-  //         productImage:'https://reqres.in/img/faces/1-image.jpg'
-  //     }
-  // ];
-   }
+    }
 
   ngOnInit(): void {
       this.dataService.getAllProducts().subscribe(response => {
@@ -41,17 +36,43 @@ export class ShowProductsComponent implements OnInit {
         }
         this.dataService.data = this.data;
         // console.log("service data :::"+ this.data);
+    }, error =>{
+      this.isError=true;
+      this.errorMsg=error.message;
     });  
+    this.isLoading=false;
   }
 
-  addToCart(id:number)
+  addToCart(id:number):void
   {
     this.dataService.addToCart(id).subscribe(response =>{
         this.isAdded = true;
         setTimeout(() => {
           this.isAdded = false;
         }, 2000);
+    }, error =>{
+      this.isError=true;
+      this.errorMsg=error.message;
     });
+  }
+
+  searchProducts():void { 
+    let input = this.searchString; 
+    input=input.toLowerCase(); 
+    let x = document.getElementsByClassName('card'); 
+    
+    for (var i = 0; i < x.length; i++) { 
+      if (!x[i].innerHTML.toLowerCase().includes(input)) { 
+        x[i].className="no-display";
+      } 
+      // else { 
+      // 	x[i].className="list-item";				 
+      // } 
+    } 
+  } 
+
+  ngOnDestroy(){
+    // this.dataService.unsubscribe();
   }
 
 }
