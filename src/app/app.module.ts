@@ -14,11 +14,12 @@ import { authService } from './shared/auth.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { authGuard } from './shared/auth.guard';
 // import { AppRoutingModule} from './app-routing.module';
 
 const appRoutes: Routes = [
    { path: '', component: LoginComponent },
-   { path: 'products', component: ShowProductsComponent },
+   { path: 'products', component: ShowProductsComponent, canActivate:[authGuard] },
    { path: 'cart', component: ShowCartComponent }
 ];
 

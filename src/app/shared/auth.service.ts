@@ -10,6 +10,7 @@ export class authService {
     userSub =new BehaviorSubject<user>(null);
     private URL : string="https://reqres.in/api/";
     public token:string;
+    private tokenExpTimer:any;
 
     constructor(private http: HttpClient,private router:Router) {
         
@@ -42,15 +43,28 @@ export class authService {
     }
 
     private handleAuthentication(email:string,id:string,_token:string,_tokenExpDate:Date){
-        const expDate = new Date (_tokenExpDate.getTime()+100*1000); 
+        const expDate = new Date (3600*3600+1000); 
         const userdata = new user (email,id,_token,expDate);
         this.userSub.next(userdata);
+        this.autoLogout(3600*3600+1000);
         localStorage.setItem('userData',JSON.stringify(userdata));
     }
 
     public logout(){
         this.userSub.next(null);
         this.router.navigateByUrl('/');
+        localStorage.removeItem('userData');
+        if(this.tokenExpTimer){
+            clearTimeout(this.tokenExpTimer);
+        }
+        this.tokenExpTimer=null;
+    }
+
+    public autoLogout(expDuration : number){
+        // console.log(expDuration);
+        this.tokenExpTimer = setTimeout(()=>{
+            this.logout();
+        },expDuration);
     }
 
     public autoLogin(){
@@ -65,6 +79,8 @@ export class authService {
         
         if(loadedUser.getToken){
             this.userSub.next(loadedUser);
+            const expDuration = new Date(userData._tokenExpDate).getTime() - new Date().getTime();
+            this.autoLogout(expDuration);
         }
         
     }
