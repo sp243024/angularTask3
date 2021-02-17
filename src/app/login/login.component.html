@@ -51,7 +51,7 @@
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-3">
-                <button class="btn btn-primary form-control" type="submit" [disabled]="!authForm.valid" (click)="onLogin()"> {{isLoginMode ? 'Login' : 'Sign Up'}}</button>
+                <button class="btn btn-primary form-control" type="submit" [disabled]="!authForm.valid"> {{isLoginMode ? 'Login' : 'Sign Up'}}</button>
             </div>
             <div class="col-sm-3">
                 <button class="btn btn-secondary form-control" type="button" (click)="onSwitchMode()">Switch to {{isLoginMode ? 'Sign Up' : 'Login'}}</button></div>

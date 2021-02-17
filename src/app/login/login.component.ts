@@ -13,25 +13,13 @@ export class LoginComponent implements OnInit {
   public userName : string;
   public password : string;
   public isLoginMode: boolean=true;
-  public isLoading:boolean=false;
+  public isLoading: boolean=false;
   public isError: boolean=false;
-  public errorMsg:string=null;
+  public errorMsg: string=null;
 
   constructor(private router: Router, private authService: authService) { }
 
   ngOnInit(): void {
-  }
-
-  public onLogin()
-  {
-    if(this.userName=="abc@bacancy.com" && this.password=="bacancy")
-    {
-      // this.router.navigate(['/home1']);
-      this.router.navigateByUrl('/products');
-    }
-    else
-    {
-    }
   }
 
   public onSwitchMode():void

@@ -32,7 +32,7 @@ export class ShowCartComponent implements OnInit {
     });
 
     this.dataService.getAllProducts().subscribe(response => {
-      console.log(response);
+      // console.log(response);
       for (let i = 0; i < Object.keys(response).length; i++) {
         this.productData.push({ 
           productId: response[i]['id'], 

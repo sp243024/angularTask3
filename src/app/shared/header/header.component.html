@@ -1,11 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-    <div class="container-fluid">
-
-        <button class="navbar-brand btn btn-light" routerLink='/' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [disabled]="!isAunthenticated">Login</button>
-        <button class="navbar-brand btn btn-light" routerLink='/products' routerLinkActive="active" [disabled]="isAunthenticated">Products</button>
-        <button class="navbar-brand btn btn-light" routerLink='/cart' routerLinkActive="active" [disabled]="isAunthenticated">My Cart</button>
-        <button class="navbar-brand btn btn-light" routerLink='/' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="onLogout()" [disabled]="isAunthenticated">LogOut</button>
-
+<nav class="navbar nav-colapse navbar-expand-lg navbar-light " style="background:  rgba(0, 0, 0, 0.2);">
+    <div class=" container-fluid collapse navbar-collapse ">
+        <ul class="navbar-nav ">
+            <li class="nav-item nav-link ">
+                <button class="navbar-brand btn  " routerLink='/' routerLinkActive="active " [routerLinkActiveOptions]="{exact: true} " [disabled]="isAunthenticated ">Login</button>
+            </li>
+            <li class="nav-item nav-link ">
+                <button class="navbar-brand btn  " routerLink='/products' routerLinkActive="active " [disabled]="!isAunthenticated ">Products</button>
+            </li>
+            <li class="nav-item nav-link ">
+                <button class="navbar-brand btn  " routerLink='/cart' routerLinkActive="active " [disabled]="!isAunthenticated ">My Cart</button>
+            </li>
+            <li class="nav-item nav-link ">
+                <button class="navbar-brand btn  " (click)="onLogout() " [disabled]="!isAunthenticated ">LogOut</button>
+            </li>
+        </ul>
     </div>
 </nav>
