@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
+import { authService } from './auth.service';
 import { productDetails } from './productDetails.model';
 
 @Injectable()
@@ -8,7 +9,7 @@ export class productListService implements OnInit {
     public data: productDetails[] = [];
     private URL : string="https://fakestoreapi.com/";
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,private authService : authService) {
     }
 
     ngOnInit(): void { }

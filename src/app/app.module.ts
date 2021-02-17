@@ -10,7 +10,6 @@ import { ShowProductsComponent } from './show-products/show-products.component';
 import { productListService } from './shared/productList.service';
 import { ShowCartComponent } from './show-cart/show-cart.component';
 import { authIntercepterService} from './shared/authIntercepter.service';
-import { loginIntercepterService } from './shared/loginIntercepter.service';
 import { authService } from './shared/auth.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -48,13 +47,7 @@ const appRoutes: Routes = [
       provide:HTTP_INTERCEPTORS, 
       useClass: authIntercepterService, 
       multi: true
-    },
-    {
-      provide:HTTP_INTERCEPTORS, 
-      useClass: loginIntercepterService, 
-      multi: true
     }
-    
   ],
   bootstrap: [AppComponent]
 })
