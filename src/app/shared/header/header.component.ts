@@ -16,12 +16,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userSub = this.authService.userSub.subscribe(user=>{
       this.isAunthenticated=!!user;
-      // console.log(user);
-      // this.isAunthenticated=false;
-      // if(!user)
-      // {
-      //   this.isAunthenticated=false;
-      // }
     });
   }
 
@@ -32,6 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public onLogout(){
     this.authService.logout();
     this.isAunthenticated=false;
-    this.router.navigateByUrl('/');
+    // this.router.navigateByUrl('/');
   }
 }

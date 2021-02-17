@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { user } from './user.model';
 import { tap } from 'rxjs/operators';
-
+import { Router } from '@angular/router';
 
 @Injectable()
 export class authService {
@@ -11,7 +11,7 @@ export class authService {
     private URL : string="https://reqres.in/api/";
     public token:string;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,private router:Router) {
         
     }
 
@@ -45,10 +45,27 @@ export class authService {
         const expDate = new Date (_tokenExpDate.getTime()+100*1000); 
         const userdata = new user (email,id,_token,expDate);
         this.userSub.next(userdata);
-
+        localStorage.setItem('userData',JSON.stringify(userdata));
     }
 
     public logout(){
         this.userSub.next(null);
+        this.router.navigateByUrl('/');
+    }
+
+    public autoLogin(){
+        const userData: { email:string,id: string,_token:string,_tokenExpDate:Date}
+         = JSON.parse(localStorage.getItem('userData'));
+        if(!userData)
+        {
+            return;
+        }
+
+        const loadedUser = new user(userData.email,userData.id,userData._token,new Date(userData._tokenExpDate));
+        
+        if(loadedUser.getToken){
+            this.userSub.next(loadedUser);
+        }
+        
     }
 }
