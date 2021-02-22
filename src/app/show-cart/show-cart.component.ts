@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { productDetails } from '../shared/productDetails.model';
 import { productListService } from '../shared/productList.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-show-cart',
@@ -10,13 +11,12 @@ import { productListService } from '../shared/productList.service';
 export class ShowCartComponent implements OnInit {
   public cartProducts:[{}];
   public productData: productDetails[] = [];
-  public isMsg: boolean = false;
-  public toastMsg : string =null;
   public isError: boolean=false;
   public errorMsg:string=null;
   public isLoading:boolean=false;
 
-  constructor(private dataService: productListService) { }
+  constructor(private dataService: productListService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.isLoading=true;
@@ -55,11 +55,7 @@ export class ShowCartComponent implements OnInit {
   {
     // this.dataService.deleteFromCart();
     this.cartProducts.splice(id,1);
-    this.isMsg = true;
-    this.toastMsg="Product deleted from Cart successfully";
-      setTimeout(() => {
-        this.isMsg = false;
-      }, 2000);
+    this.toastr.success('Product deleted from Cart successfully');  
   }
 
   public decreaseQuantity(id:number):void
@@ -70,11 +66,7 @@ export class ShowCartComponent implements OnInit {
     }
     else
     {
-      this.isMsg = true;
-      this.toastMsg="Product Quantity can not be less than 0";
-        setTimeout(() => {
-          this.isMsg = false;
-        }, 2000);
+      this.toastr.warning('Product Quantity can not be less than 0');  
     }
   }
   
@@ -86,11 +78,7 @@ export class ShowCartComponent implements OnInit {
     }
     else
     {
-      this.isMsg = true;
-      this.toastMsg="Product Quantity can not be more than 10";
-        setTimeout(() => {
-          this.isMsg = false;
-        }, 2000);
+      this.toastr.warning('Product Quantity can not be more than 10');
     }
   }
 }

@@ -7,8 +7,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-10">
-            <table class="table table-bordered" style="width:800px">
+        <div class="col-md-12">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Product Name</th>
@@ -40,17 +40,9 @@
                                 </tr>
                             </ng-container>
                         </ng-container>
-                        <!-- <td><img src="{{x.avatar}}" width="75" height="75" /></td>
-                    <td>
-                        <a [routerLink]="[i]">Edit </a>
-                        <a (click)="onDelete(x.id)">| Delete</a>
-                    </td> -->
                     </ng-container>
                 </tbody>
             </table>
-        </div>
-        <div class="col-md-2">
-            <h3 class="btn btn-info" *ngIf="isMsg">{{toastMsg}}</h3>
         </div>
     </div>
 </div>
