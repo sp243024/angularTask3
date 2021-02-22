@@ -25,7 +25,31 @@ export class productListService implements OnInit {
             );
     }
     
+    public deleteProduct(id:number){
+        return this.http.delete(this.URL+'products/6');
+    }
+
     public getCartData(id:number){
         return this.http.get<any>(this.URL+'carts/'+id);
     }
+
+    public updateProduct(id:number,data:productDetails){
+        return this.http.put(this.URL+'products/'+id,{
+            title: data.productName,
+            price: data.productPrice,
+            description: data.productDescription,
+            image: 'https://i.pravatar.cc',
+            category: data.productCategory
+        });
+    } 
+
+    public addProduct(data:productDetails){
+        return this.http.post(this.URL+'products',{
+            title: data.productName,
+            price: data.productPrice,
+            description: data.productDescription,
+            image: 'https://i.pravatar.cc',
+            category: data.productCategory
+        });
+    } 
 }

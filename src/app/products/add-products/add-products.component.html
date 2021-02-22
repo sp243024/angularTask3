@@ -1,0 +1,70 @@
+<h4>{{pageTitle}}</h4>
+<br>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div *ngIf="productDetails.productImage" class="col-md-12">
+            <div class="col-md-12">
+                <b><label for="avatar">Product Image :</label></b>
+            </div>
+            <div class="col-md-6">
+                <img [src]="productDetails.productImage" width="300" height="350" />
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <div class="col-md-12">
+            <b><label for="productId">Product Id :</label></b>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="productId" placeholder="Enter Product Id" [(ngModel)]="productDetails.productId" minlength="1" pattern="[0-9]" />
+        </div>
+        <div class="col-md-6"></div>
+
+        <div class="col-md-12">
+            <b><label for="productName">Product Name :</label></b>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="productName" placeholder="Enter Product Name" [(ngModel)]="productDetails.productName" pattern="[a-zA-Z0-9]+" minlength="10" />
+        </div>
+        <div class="col-md-6"></div>
+
+        <div class="col-md-12">
+            <b><label for="productPrice">Product Price :</label></b>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="productPrice" placeholder="Enter Product Price" [(ngModel)]="productDetails.productPrice" pattern="[0-9]" minlength="1" />
+        </div>
+        <div class="col-md-6"></div>
+
+        <div class="col-md-12">
+            <b><label for="productCategory">Product Category :</label></b>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="productCategory" placeholder="Enter Product Category" [(ngModel)]="productDetails.productCategory" pattern="[a-zA-Z0-9]+" minlength="4" />
+        </div>
+        <div class="col-md-6"></div>
+
+        <div class="col-md-12">
+            <b><label for="productDescription">Product Description :</label></b>
+        </div>
+        <div class="col-md-6">
+            <textarea id="productDescription" class="form-control" rows="4" cols="50" placeholder="Enter Product Description" [(ngModel)]="productDetails.productDescription" pattern="[a-zA-Z0-9]+" minlength="20"></textarea>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+
+    <br><br>
+
+    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6" style="text-align: right">
+        <br><button class="btn btn-secondary" (click)="onSubmit()">Submit</button>
+    </div>
+
+    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+        <br><button class="btn btn-light"><a routerLink="../../products">Cancel</a></button>
+    </div>
+</div>

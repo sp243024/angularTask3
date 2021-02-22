@@ -4,9 +4,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ShowProductsComponent } from './show-products/show-products.component';
+import { ShowProductsComponent } from './products/show-products/show-products.component';
+import { AddProductsComponent } from './products/add-products/add-products.component';
 import { productListService } from './shared/productList.service';
 import { ShowCartComponent } from './show-cart/show-cart.component';
 import { authIntercepterService} from './shared/authIntercepter.service';
@@ -15,11 +19,11 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { authGuard } from './shared/auth.guard';
-// import { AppRoutingModule} from './app-routing.module';
 
 const appRoutes: Routes = [
    { path: '', component: LoginComponent },
    { path: 'products', component: ShowProductsComponent, canActivate:[authGuard] },
+   { path: 'products/:id', component: AddProductsComponent },
    { path: 'cart', component: ShowCartComponent }
 ];
 
@@ -31,7 +35,8 @@ const appRoutes: Routes = [
     ShowCartComponent,
     LoadingSpinnerComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AddProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     HttpClientModule,
     Ng2SearchPipeModule,
-    // AppRoutingModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     productListService,

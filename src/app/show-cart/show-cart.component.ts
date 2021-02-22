@@ -14,11 +14,12 @@ export class ShowCartComponent implements OnInit {
   public toastMsg : string =null;
   public isError: boolean=false;
   public errorMsg:string=null;
-  public isLoading:boolean=true;
+  public isLoading:boolean=false;
 
   constructor(private dataService: productListService) { }
 
   ngOnInit(): void {
+    this.isLoading=true;
     this.getCartData(1);
   }
 
@@ -53,6 +54,7 @@ export class ShowCartComponent implements OnInit {
   public deleteFromCart(id:number):void
   {
     // this.dataService.deleteFromCart();
+    this.cartProducts.splice(id,1);
     this.isMsg = true;
     this.toastMsg="Product deleted from Cart successfully";
       setTimeout(() => {
